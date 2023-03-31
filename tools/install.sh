@@ -1,8 +1,7 @@
 #!/bin/bash
 
 help=$(cat <<EOF
-usage: install [-o operating system code name]
-[-p path to folder containing *.conf files]
+usage: install [-p path to folder containing *.conf files]
 [-f name of the folder containing files to install]
 [-t header to include. comments characters will be added automatically via relevant *.conf file]
 [-h help]
@@ -13,9 +12,12 @@ EOF
 # absolute paths up to the home dir
 HOME_KEY="~HOME~"
 
-while getopts 'o:p:f:t:a:h' flag; do
+# BASH OS types
+OS_LINUX="linux-gnu"
+OS_MACOS="darwin"
+
+while getopts 'p:f:t:a:h' flag; do
         case "${flag}" in
-		o) OS=${OPTARG};;
 		p) _PATH=${OPTARG};;
         f) INSTALL_FILES_DIRNAME=${OPTARG};;
         t) HEADER_FILE=${OPTARG};;
@@ -29,15 +31,17 @@ if [ ! -d $_PATH ]; then
 	exit 1
 fi
 
-if [ $OS == "" ]; then
-	echo "ERROR: Must supply -o flag specifying the operating system!"
+if [[ "$OSTYPE" == "$OS_LINUX"* ]]; then
+    OS=$OS_LINUX
+elif [[ "$OSTYPE" == "$OS_MACOS"* ]]; then
+    OS=$OS_MACOS
+else
+	echo "ERROR: os $OS not supported yet. must be one of [$OS_LINUX,$OS_MACOS]!"
 	exit 1
 fi
 
-if [ $OS != "darwin" ] && [ $OS != "linux" ]; then
-	echo "ERROR: os not supported yet. must be one of [darwin, linux]!"
-	exit 1
-fi
+echo -e "\nINFO: ---| cboin ENV installer |--\n"
+echo -e "INFO: detected operating system $OS\n"
 
 if [ ! -d $_PATH/$INSTALL_FILES_DIRNAME ] || [ $INSTALL_FILES_DIRNAME == "" ]; then
     echo "ERROR: Must supply -f flag with folder name containing files to install!"
@@ -49,7 +53,7 @@ if [ ! -f $HEADER_FILE ]; then
     exit 1
 fi
 
-echo -e "\nINFO: starting installation process!\n"
+echo -e "INFO: starting installation process!\n"
 # load the config path
 CONFPATH=$_PATH/$OS.conf
 
@@ -93,12 +97,21 @@ do
 
     # add header
     # for shell scripts, header must be below shebang
-    if [[ "$FILE_NAME" == *".sh"* ]]; then
+    if [ "$FILE_NAME" == *".sh"* ] && [ "$OS" == "$OS_LINUX"* ]; then
         echo "INFO: inserting header below shebang for *.sh type!"
         HEADER_LOC=2
     fi
+
     FILE_DEST=$DISK_LOCATION/$FILE_NAME
-    FILE_WITH_HEADER=$(cat $FILE | sed "$HEADER_LOC i $HEADER")
+    # header tagging of files only supported in linux so far.
+    if [ "$OS" == $OS_LINUX ]; then
+        echo "INFO: Tagged file $FILE with header $HEADER"
+        FILE_WITH_HEADER=$(cat $FILE | sed "$HEADER_LOC i $HEADER")
+    else
+        echo "WARN: Tagging of files with headers only supported for OS $OS_LINUX."
+        FILE_WITH_HEADER=$(cat $FILE)
+    fi
+
     # double check file exists
     if [ ! -f $FILE_DEST ]; then
         echo "WARN: $FILE_DEST not found. Attempting to load in $FILE."
@@ -111,5 +124,5 @@ do
     echo "INFO: Backed up $FILE_DEST -> $FILE_DEST.bak"
     echo "$FILE_WITH_HEADER" > $FILE_DEST
     echo "INFO: Installed $FILE to $FILE_DEST"
-    echo -e "\n-------------------------"
+    echo -e "-------------------------"
 done

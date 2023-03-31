@@ -9,15 +9,13 @@ chmodder:
 .PHONY: byobu
 byobu:
 	@echo running installer for byobu!
-	./tools/install.sh -o $(OS) \
-	-p byobu \
+	./tools/install.sh -p byobu \
 	-f files \
 	-t header.txt
 
 .PHONY: scripts
 scripts:
 	@echo running installer for scripts!
-	sudo ./tools/install.sh -o $(OS) \
-	-p scripts \
+	sudo ./tools/install.sh -p scripts \
 	-f files \
 	-t header.txt
