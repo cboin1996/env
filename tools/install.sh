@@ -81,7 +81,8 @@ if [[ "$DISK_LOCATION" == *"$HOME_KEY"* ]]; then
 fi
 # obtain local file location
 FILESPATH=$_PATH/$INSTALL_FILES_DIRNAME
-FILES=$(ls -d "$PWD"/$FILESPATH/*)
+FILES=$(find $PWD/$FILESPATH -name "*" -type f)
+
 cat <<EOF
 INFO: Will install the following files to '$DISK_LOCATION': $FILES
 

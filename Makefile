@@ -1,5 +1,5 @@
 .PHONY: install
-install: chmodder byobu scripts zshrc
+install: chmodder byobu scripts
 
 .PHONY: chmodder
 chmodder:
@@ -17,5 +17,12 @@ byobu:
 scripts:
 	@echo running installer for scripts!
 	sudo ./tools/install.sh -p scripts \
+	-f files \
+	-t header.txt
+
+.PHONY: zshrc
+zshrc:
+	@echo running installer for zshrc!
+	./tools/install.sh -p zshrc \
 	-f files \
 	-t header.txt
