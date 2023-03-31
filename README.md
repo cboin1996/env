@@ -42,8 +42,12 @@ To be more selective about what you want to install,
 use the `install.sh` script directly or any of the targets
 in the makefile individually.
 
-Currently, hidden files are not supported in the install script.
-As such `~/.zshrc` needs manually installed.
+Note: `.zshrc` is not installed as a part of
+`make install`. To install `.zshrc`, run
+
+```bash
+make zshrc
+```
 
 ## Development
 
@@ -51,4 +55,12 @@ As such `~/.zshrc` needs manually installed.
 
 ```bash
 ./skeleton -p foldername -f files -s "summary of folder"
+```
+
+## Reverting
+
+Simply overwrite the new file with the backup.
+
+```bash
+mv installed-file.bak installed-file
 ```

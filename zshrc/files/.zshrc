@@ -1,3 +1,6 @@
+if [[ -f "/usr/local/bin/oink.sh" ]]; then
+	oink.sh -t "cboin" -f 5lineoblique
+fi
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
