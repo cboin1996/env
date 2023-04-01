@@ -44,9 +44,10 @@ cat <<EOF > $_PATH/README.md
 $SUMMARY
 
 EOF
+# readme ends here
 
 # slap in the config stub
 echo "Setting up default configs"
-cp *.default.conf $_PATH
+cp *.conf $_PATH
 
-echo "Setup complete under $_PATH :)
+echo "Setup complete under $_PATH :)"
