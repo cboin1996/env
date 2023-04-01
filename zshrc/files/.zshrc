@@ -172,6 +172,12 @@ alias songbirdi="docker run -it --env-file "${HOME}"/proj/cboin1996/songbird/.en
 # ((___( ( ((__( (__/ / //   ) )   
 #
 #
+# Isenguard stuff
+alias isenwho="printenv | grep 'AWS_PROFILE' | sed 's/AWS_PROFILE=//'"
+alias isenwhere="printenv | grep 'AWS_DEFAULT_REGION' | sed 's/AWS_DEFAULT_REGION=//'"
+
+# Tasteful shortcuts
+alias isengard="isengardcli"
 # AWS autocomplete (must be at EOF)
 autoload bashcompinit && bashcompinit
 autoload -Uz compinit && compinit
