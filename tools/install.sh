@@ -7,6 +7,7 @@ usage: install [-p path to folder containing *.conf files]
 [-h help]
 EOF
 )
+
 # this key will be used to parse
 # and replace values with actual
 # absolute paths up to the home dir
@@ -40,7 +41,7 @@ else
 	exit 1
 fi
 
-echo -e "\nINFO: ---| cboin ENV installer |--\n"
+echo -e "\nINFO: ---| cboin ENV installer | config dir: $_PATH |--\n"
 echo -e "INFO: detected operating system $OS\n"
 
 if [ ! -d $_PATH/$INSTALL_FILES_DIRNAME ] || [ $INSTALL_FILES_DIRNAME == "" ]; then
@@ -57,6 +58,7 @@ echo -e "INFO: starting installation process!\n"
 # load the config path
 CONFPATH=$_PATH/$OS.conf
 
+VERSION=$(cat VERSION)
 # parse location of where files should be placed
 DISK_LOCATION=$(grep 'PATH' $CONFPATH | sed "s/PATH=//")
 
@@ -68,6 +70,8 @@ INSTALL_LOC=$(grep 'INSTALL' $CONFPATH | sed "s/INSTALL=//")
 
 # prepare header
 HEADER=$(cat $HEADER_FILE | sed "s/^/$COMMENT_CHAR /")
+HEADER=$(echo $HEADER | sed "s/~VERSION~/$VERSION/")
+
 HEADER_LOC=1
 
 # ensure files being placed into home directories
@@ -79,6 +83,7 @@ if [[ "$DISK_LOCATION" == *"$HOME_KEY"* ]]; then
     DISK_LOCATION=$(echo $DISK_LOCATION | sed "s/$HOME_KEY/$ESCAPED_HOME/")
     echo -e "INFO: replaced $HOME_KEY in destination -> $DISK_LOCATION\n"
 fi
+
 # obtain local file location
 FILESPATH=$_PATH/$INSTALL_FILES_DIRNAME
 FILES=$(find $PWD/$FILESPATH -name "*" -type f)
@@ -104,22 +109,26 @@ do
     fi
 
     FILE_DEST=$DISK_LOCATION/$FILE_NAME
-    # header tagging of files only supported in linux so far.
+
+    # os specific tagging due to sed being different on non-gnu os
     if [ "$OS" == $OS_LINUX ]; then
-        echo "INFO: Tagged file $FILE with header $HEADER"
         FILE_WITH_HEADER=$(cat $FILE | sed "$HEADER_LOC i $HEADER")
     else
-        echo "WARN: Tagging of files with headers only supported for OS $OS_LINUX."
-        FILE_WITH_HEADER=$(cat $FILE)
+        FILE_WITH_HEADER=$(cat $FILE | awk -v h="$HEADER" -v l="$HEADER_LOC" 'BEGIN{print h}l')
     fi
+    echo "INFO: Tagged file $FILE with header -> $HEADER"        
 
     # double check file exists
     if [ ! -f $FILE_DEST ]; then
-        echo "WARN: $FILE_DEST not found. Attempting to load in $FILE."
+        echo "INFO: No pre-existing $FILE_DEST found. Will place $FILE."
         echo "$FILE_WITH_HEADER" > $FILE_DEST
-        echo "WARN: To avoid this warning next time, checkout here: $INSTALL_LOC"
+        echo "INFO: Success. To avoid this message in the future, make sure you've followed the installation instructions: $INSTALL_LOC"
         continue
     fi
+
+    # Replace any references to the version key with the actual version
+    FILE_WITH_HEADER=$(echo "$FILE_WITH_HEADER" | sed "s/~VERSION~/$VERSION/")
+
     # perform file system update
     cp $FILE_DEST $FILE_DEST.bak
     echo "INFO: Backed up $FILE_DEST -> $FILE_DEST.bak"
@@ -127,3 +136,5 @@ do
     echo "INFO: Installed $FILE to $FILE_DEST"
     echo -e "-------------------------"
 done
+
+echo "INFO: installed complete."
