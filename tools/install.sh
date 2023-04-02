@@ -137,4 +137,4 @@ do
     echo -e "-------------------------"
 done
 
-echo "INFO: installed complete."
+echo "INFO: install complete."
