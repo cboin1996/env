@@ -103,7 +103,7 @@ do
 
     # add header
     # for shell scripts, header must be below shebang
-    if [ "$FILE_NAME" == *".sh"* ] && [ "$OS" == "$OS_LINUX"* ]; then
+    if [[ "$FILE_NAME" == *".sh"* ]]; then
         echo "INFO: inserting header below shebang for *.sh type!"
         HEADER_LOC=2
     fi
