@@ -5,22 +5,16 @@ for mac/linux operating systems, along with an installation
 tool.
 
 ```tree
-.
-├── byobu   - byobu configuration files
-├── zshrc   - zshrc files
-├── tools   - developer tools
-├── scripts - scripts and utils
-└── vscode  - vscode configuration files
+./configs
+├── byobu        - byobu configuration files
+├── zshrc        - zshrc files
+├── zsh-themes   - zshrc files
+├── tools        - developer tools
+├── scripts      - scripts and utils
+└── vscode       - vscode configuration files
 ```
 
 ## Setup
-
-First, set your operating system as one of
-
-```bash
-export OS=linux
-export OS=darwin
-```
 
 Make sure you have [realpath](https://man7.org/linux/man-pages/man3/realpath.3.html)
 installed.
@@ -42,19 +36,12 @@ To be more selective about what you want to install,
 use the `install.sh` script directly or any of the targets
 in the makefile individually.
 
-Note: `.zshrc` is not installed as a part of
-`make install`. To install `.zshrc`, run
-
-```bash
-make zshrc
-```
-
 ## Development
 
 ### Setup a skeleton folder
 
 ```bash
-./skeleton -p foldername -f files -s "summary of folder"
+./tools/skeleton -p foldername -f files -s "summary of folder"
 ```
 
 ## Reverting
