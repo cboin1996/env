@@ -5,16 +5,18 @@ usage: oink [-t text to display]
 [-p optional prefix]
 [-f specify font. see: http://www.figlet.org/examples.html]
 [-d description]
+[-a any figlet args]
 [-h help]
 EOF
 )
 
-while getopts 't:f:p:d:h' flag; do
+while getopts 't:f:p:d:a:h' flag; do
         case "${flag}" in
 		f) FONT=${OPTARG};;
 		t) TEXT=${OPTARG};;
 		p) PREFIX=${OPTARG};;
 		d) DESC=${OPTARG};;
+		a) ARGS=${OPTARG};;
 		h) echo ${help} && exit 0;;
         esac
 done
@@ -34,7 +36,7 @@ if [[ $DESC != "" ]]; then
 fi
 
 # Generate ascii
-figlet $FONT $TEXT | sed "s/^/${PREFIX} /"
+figlet $FONT $TEXT $ARGS | sed "s/^/${PREFIX} /"
 
 # Add description
 cat <<EOF
