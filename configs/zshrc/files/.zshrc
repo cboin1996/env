@@ -47,8 +47,8 @@ alias songbirdgi="docker run -it --env-file "${HOME}"/proj/cboin1996/songbird/.e
 	-v "${HOME}"/proj/cboin1996/songbird/app/data/dump:/app/data/dump \
 	-v "${HOME}"/proj/cboin1996/songbird/app/data/local_chromium:/root/.local/share/pyppeteer/local-chromium \
 	-v "${HOME}"/proj/cboin1996/songbird/app/data/gdrive:/app/data/gdrive \
-	-v /path/to/itunesautoadd:/app/data/itunesauto \
-	-v /path/to/ituneslib:/app/data/ituneslib \
+        -v "${HOME}"/Music/iTunes/iTunes\ Media/Automatically\ Add\ to\ Music.localized:/app/data/itunesauto \
+        -v "${HOME}"/Music/Itunes/Itunes\ Media/Music:/app/data/ituneslib \
 	-p 8080:8080 \
 	--hostname songbird \
 	--pull always \
