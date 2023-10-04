@@ -73,6 +73,18 @@ alias songbirdi="docker run -it --env-file "${HOME}"/proj/cboin1996/songbird/.en
 	--pull always \
         cboin/songbird:latest"
 
+#
+#
+#     //   ) )
+#    //         ___     //  ___       __      ___
+#   //  ____  //   ) ) // //   ) ) //   ) ) //   ) )
+#  //    / / //   / / // //   / / //   / / ((___/ /
+# ((____/ / ((___/ / // ((___( ( //   / /   //__
+#
+#
+
+export PATH=$PATH:~/go/bin
+
 #     ___                   ___
 #   //   ) ) //  / /  / / ((   ) )
 #  //   / / //  / /  / /   \ \
