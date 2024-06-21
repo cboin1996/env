@@ -1,10 +1,14 @@
 .PHONY: install
-install: chmodder byobu scripts zshrc zshtheme
+install: byobu scripts tmux zshrc zshtheme
+
+.PHONY: pre
+pre:
+	mkdir ~/bin || true
 
 .PHONY: chmodder
 chmodder:
 	@echo chmodding your scripts!
-	sudo chmod +x configs/scripts/files/*.sh
+	chmod +x configs/scripts/files/*
 
 .PHONY: byobu
 byobu:
@@ -14,9 +18,9 @@ byobu:
 	-t header.txt
 
 .PHONY: scripts
-scripts:
+scripts: chmodder pre
 	@echo running installer for scripts!
-	sudo ./tools/install.sh -p configs/scripts \
+	./tools/install.sh -p configs/scripts \
 	-f files \
 	-t header.txt
 
@@ -31,5 +35,12 @@ zshrc:
 zshtheme:
 	@echo running installer for zshtheme!
 	./tools/install.sh -p configs/zsh-themes \
+	-f files \
+	-t header.txt
+
+.PHONY: tmux
+tmux:
+	@echo running installer for tmux!
+	./tools/install.sh -p configs/tmux \
 	-f files \
 	-t header.txt
