@@ -1,5 +1,6 @@
-if [[ -f "/usr/local/bin/oink.sh" ]]; then
-	oink.sh -t "_/ $USER ~VERSION~ \_" -f 5lineoblique
+export PATH=$HOME/bin:$PATH
+if [[ -f "$HOME/bin/oink.sh" ]]; then
+	$HOME/bin/oink.sh -t "_/ $USER ~VERSION~ \_" -f 5lineoblique
 fi
 
 # Path to your oh-my-zsh installation.
@@ -84,6 +85,32 @@ alias songbirdi="docker run -it --env-file "${HOME}"/proj/cboin1996/songbird/.en
 #
 
 export PATH=$PATH:~/go/bin
+
+#     ___________   ______
+#    / ____/__  /  / ____/
+#   / /_     / /  / /_    
+#  / __/    / /__/ __/    
+# /_/      /____/_/       
+#                         
+#
+#
+
+# fzf completion
+source <(fzf --zsh)
+
+#                _         
+#    ____ _   __(_)___ ___ 
+#   / __ \ | / / / __ `__ \
+#  / / / / |/ / / / / / / /
+# /_/ /_/|___/_/_/ /_/ /_/ 
+#                          
+#
+#
+
+# neovim stuff
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 #     ___                   ___
 #   //   ) ) //  / /  / / ((   ) )
