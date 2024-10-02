@@ -4,10 +4,10 @@ install: byobu scripts tmux zshrc zshtheme post
 .PHONY: pre
 pre:
 	mkdir ~/bin || true
-.PHONY: post
 
+.PHONY: post
 post:
-	chmod +x ~/bin
+	chmod +x ~/bin/*
 
 .PHONY: chmodder
 chmodder:
