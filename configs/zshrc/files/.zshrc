@@ -126,3 +126,7 @@ alias awswhere="printenv | grep 'AWS_DEFAULT_REGION' | sed 's/AWS_DEFAULT_REGION
 autoload bashcompinit && bashcompinit
 autoload -Uz compinit && compinit
 complete -C '/usr/local/bin/aws_completer' aws
+
+# cuda
+
+export PATH=$PATH:/opt/cuda/bin/
