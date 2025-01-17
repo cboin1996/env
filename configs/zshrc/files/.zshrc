@@ -1,6 +1,6 @@
 export PATH=$HOME/bin:$PATH
-if [[ -f "$HOME/bin/oink.sh" ]]; then
-	$HOME/bin/oink.sh -t "_/ $USER ~VERSION~ \_" -f 5lineoblique
+if [[ -f "$HOME/bin/oink" ]]; then
+	$HOME/bin/oink -t "_/ $USER ~VERSION~ \_" -f 5lineoblique
 fi
 
 # Path to your oh-my-zsh installation.
