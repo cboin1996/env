@@ -130,3 +130,6 @@ complete -C '/usr/local/bin/aws_completer' aws
 # cuda
 
 export PATH=$PATH:/opt/cuda/bin/
+
+# cargo
+export PATH=$PATH:$HOME/.cargo/bin
