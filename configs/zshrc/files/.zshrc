@@ -122,14 +122,14 @@ export NVM_DIR="$HOME/.nvm"
 alias awswho="printenv | grep 'AWS_PROFILE' | sed 's/AWS_PROFILE=//'"
 alias awswhere="printenv | grep 'AWS_DEFAULT_REGION' | sed 's/AWS_DEFAULT_REGION=//'"
 
-# AWS autocomplete (must be at EOF)
-autoload bashcompinit && bashcompinit
-autoload -Uz compinit && compinit
-complete -C '/usr/local/bin/aws_completer' aws
-
 # cuda
 
 export PATH=$PATH:/opt/cuda/bin/
 
 # cargo
 export PATH=$PATH:$HOME/.cargo/bin
+
+# AWS autocomplete (must be at EOF)
+autoload bashcompinit && bashcompinit
+autoload -Uz compinit && compinit
+complete -C '/usr/local/bin/aws_completer' aws
